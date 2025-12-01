@@ -29,6 +29,10 @@ def login():
     user = cursosr.fetchone()
     cursosr.close()
     conn.close()
+    
+    if user is None:
+        return jsonify({"message": "Invalid email or password"}), 401
+    
     return jsonify({"message": "Login successful","user": user})
 
 # dashboard summary
