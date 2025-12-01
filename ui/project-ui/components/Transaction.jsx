@@ -66,6 +66,21 @@ function Transaction({ userId }) {
     }
   }
 
+  const deleteTransaction = async (transactionId) => {
+    if (window.confirm('Are you sure you want to delete this transaction?')) {
+      try {
+        const response = await fetch(`http://localhost:5000/transactions/${transactionId}`, {
+          method: 'DELETE'
+        })
+        if (response.ok) {
+          fetchData()
+        }
+      } catch (error) {
+        console.error('Error deleting transaction:', error)
+      }
+    }
+  }
+
   if (loading) {
     return <div>Loading transactions...</div>
   }
@@ -182,6 +197,13 @@ function Transaction({ userId }) {
                     <p className="item-amount">
                       ${parseFloat(transaction[5]).toFixed(2)}
                     </p>
+                    <button
+                      onClick={() => deleteTransaction(transaction[0])}
+                      className="btn-small btn-danger"
+                      style={{ marginTop: '0.5rem' }}
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
               </div>

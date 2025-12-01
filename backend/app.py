@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify
 import psycopg2
 from flask_cors import CORS
 
@@ -19,7 +19,7 @@ app.register_blueprint(budget_routes)
 
 @app.route('/')
 def index():
-    return send_file('index.html')
+    return jsonify({"message": "Finance Tracker API", "status": "running"})
 
 if __name__ == '__main__':
     app.run(debug=True)
