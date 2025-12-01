@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.venv/
+venv/
+.env
+
+# Environments and caches
+.env.*
+*.env
+.pytest_cache/
+
+# Editors
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Node / front-end build artifacts (not used today but safe)
+dist/
+build/
+node_modules/
