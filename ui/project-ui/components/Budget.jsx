@@ -68,18 +68,20 @@ function Budget({ userId }) {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+      <div className="section-header">
         <h2>My Budgets</h2>
         <button
           onClick={() => setShowAddForm(!showAddForm)}
+          className="btn-primary"
         >
           {showAddForm ? 'Cancel' : '+ Add Budget'}
         </button>
       </div>
 
       {showAddForm && (
-        <form onSubmit={handleAddBudget}>
-          <div style={{ marginBottom: '1rem' }}>
+        <form onSubmit={handleAddBudget} className="form-card">
+          <div className="form-group">
+            <label>Category</label>
             <select
               value={formData.category_id}
               onChange={(e) => setFormData({ ...formData, category_id: e.target.value })}
@@ -93,7 +95,8 @@ function Budget({ userId }) {
               ))}
             </select>
           </div>
-          <div style={{ marginBottom: '1rem' }}>
+          <div className="form-group">
+            <label>Amount Limit</label>
             <input
               type="number"
               placeholder="Amount Limit"
@@ -103,9 +106,9 @@ function Budget({ userId }) {
               required
             />
           </div>
-          <div style={{ marginBottom: '1rem', display: 'flex', gap: '1rem' }}>
-            <div style={{ flex: 1}}>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Month</label>
+          <div className="form-row">
+            <div className="form-group">
+              <label>Month</label>
               <input
                 type="number"
                 min="1"
@@ -115,8 +118,8 @@ function Budget({ userId }) {
                 required
               />
             </div>
-            <div style={{flex:1}}>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontSize:'0.9rem' }}>Year</label>
+            <div className="form-group">
+              <label>Year</label>
               <input
                 type="number"
                 min="2020"
@@ -129,6 +132,7 @@ function Budget({ userId }) {
           </div>
           <button
             type="submit"
+            className="btn-primary"
           >
             Create Budget
           </button>
@@ -136,30 +140,31 @@ function Budget({ userId }) {
       )}
 
       {budgets.length===0? (
-        <p>No budgets found. Add your first budget above.</p>
+        <p className="empty-state">No budgets found. Add your first budget above.</p>
       ) : (
-        <div style={{ display: 'grid',gap:'1rem' }}>
+        <div>
           {budgets.map((budget) => {
             const category = categories.find(c => c[0] === budget[2])
             const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
             return (
               <div
                 key={budget[0]}
+                className="item-card"
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems:'center' }}>
+                <div className="item-header">
                   <div>
-                    <h3>
+                    <h3 className="item-title">
                       {category ? category[1] : 'Unknown Category'}
                     </h3>
-                    <p>
+                    <p className="item-subtitle">
                       {monthNames[budget[4] - 1]} {budget[5]}
                     </p>
                   </div>
                   <div style={{ textAlign:'right'}}>
-                    <p>
+                    <p className="item-amount">
                       ${parseFloat(budget[3]).toFixed(2)}
                     </p>
-                    <p>Limit</p>
+                    <p className="item-label">Limit</p>
                   </div>
                 </div>
               </div>

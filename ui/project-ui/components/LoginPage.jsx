@@ -51,15 +51,13 @@ function LoginPage() {
     }
   
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
-        <div style={{ backgroundColor: 'white', padding: '2rem', borderRadius: '8px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', width: '100%', maxWidth: '400px' }}>
-          <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-            {isLogin ? 'Login' : 'Create Account'}
-          </h2>
+      <div className="login-container">
+        <div className="login-card">
+          <h2>{isLogin ? 'Login' : 'Create Account'}</h2>
           <form onSubmit={handleSubmit}>
             {!isLogin && (
               <>
-                <div style={{ marginBottom: '1rem' }}>
+                <div className="form-group">
                   <input
                     type="text"
                     placeholder="First Name"
@@ -68,7 +66,7 @@ function LoginPage() {
                     required
                   />
                 </div>
-                <div style={{ marginBottom: '1rem' }}>
+                <div className="form-group">
                   <input
                     type="text"
                     placeholder="Last Name"
@@ -79,7 +77,7 @@ function LoginPage() {
                 </div>
               </>
             )}
-            <div style={{ marginBottom: '1rem' }}>
+            <div className="form-group">
               <input
                 type="email"
                 placeholder="Email"
@@ -88,7 +86,7 @@ function LoginPage() {
                 required
               />
             </div>
-            <div style={{ marginBottom:'1rem' }}>
+            <div className="form-group">
               <input
                 type="password"
                 placeholder="Password"
@@ -97,16 +95,15 @@ function LoginPage() {
                 required
               />
             </div>
-            {error && <div>{error}</div>}
-            <button
-              type="submit"
-            >
+            {error && <div className="error-message">{error}</div>}
+            <button type="submit" className="btn-primary">
               {isLogin ? 'Login':'Create Account'}
             </button>
           </form>
           <div style={{ textAlign: 'center' }}>
             <button
               type="button"
+              className="toggle-button"
               onClick={() => {
                 setIsLogin(!isLogin)
                 setError('')

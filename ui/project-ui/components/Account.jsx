@@ -52,18 +52,20 @@ function Account({ userId }) {
 
   return (
     <div>
-      <div style={{ display: 'flex',justifyContent:'space-between',alignItems:'center',marginBottom: '1.5rem' }}>
+      <div className="section-header">
         <h2>My Accounts</h2>
         <button
           onClick={()=>setShowAddForm(!showAddForm)}
+          className="btn-primary"
         >
           {showAddForm?'Cancel':'+ Add Account'}
         </button>
       </div>
 
       {showAddForm && (
-        <form onSubmit={addAcc}>
-          <div style={{ marginBottom: '1rem' }}>
+        <form onSubmit={addAcc} className="form-card">
+          <div className="form-group">
+            <label>Account Name</label>
             <input
               type="text"
               placeholder="Account Name"
@@ -72,7 +74,8 @@ function Account({ userId }) {
               required
             />
           </div>
-          <div style={{ marginBottom: '1rem' }}>
+          <div className="form-group">
+            <label>Account Type</label>
             <select
               value={type}
               onChange={(e) => settype(e.target.value)}
@@ -84,7 +87,8 @@ function Account({ userId }) {
               <option value="Other">Other</option>
             </select>
           </div>
-          <div style={{ marginBottom: '1rem' }}>
+          <div className="form-group">
+            <label>Initial Balance</label>
             <input
               type="number"
               placeholder="Initial Balance"
@@ -95,6 +99,7 @@ function Account({ userId }) {
           </div>
           <button
             type="submit"
+            className="btn-primary"
           >
             Create Account
           </button>
@@ -102,18 +107,18 @@ function Account({ userId }) {
       )}
 
       {accounts.length===0? (
-        <p>No accounts found. Add your first account above.</p>
+        <p className="empty-state">No accounts found. Add your first account above.</p>
       ) : (
         <div>
           {accounts.map((account) => (
-            <div key={account[0]}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div key={account[0]} className="item-card">
+              <div className="item-header">
                 <div>
-                  <h3 style={{ margin:'0 0 0.5rem 0'}}>{account[2]}</h3>
-                  <p style={{ margin:'0',color:'#666'}}>{account[3]}</p>
+                  <h3 className="item-title">{account[2]}</h3>
+                  <span className={`badge badge-${account[3].toLowerCase()}`}>{account[3]}</span>
                 </div>
                 <div style={{ textAlign:'right' }}>
-                  <p>
+                  <p className="item-amount">
                     ${parseFloat(account[4]).toFixed(2)}
                   </p>
                 </div>

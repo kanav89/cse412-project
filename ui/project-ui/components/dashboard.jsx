@@ -23,33 +23,18 @@ function Dashboard() {
 
   if (!user) return <div>Loading...</div>
 
-  const tabStyle = {
-    padding: '0.75rem 1.5rem',
-    border: 'none',
-
-    cursor: 'pointer',
-    background: 'transparent',
-    color: '#418C8A',
-  }
-
-  const activeTabStyle = {
-    ...tabStyle,
-    background: '#418C8A',
-    color: 'white',
-  }
-
   return (
-    <div style={{ padding: '2rem', maxWidth: '1200px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2rem' }}>
+    <div className="dashboard-container">
+      <div className="dashboard-header">
         <h1>Personal Finance Tracker</h1>
-        <button onClick={logoutfunction}>Logout</button>
+        <button onClick={logoutfunction} className="btn-danger">Logout</button>
       </div>
 
-      <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', borderBottom: '2px solid #e0e0e0' }}>
+      <div className="tab-navigation">
         {['dashboard','account','transaction','budget'].map(view => (
           <button
             key={view}
-            style={currVeiw===view?activeTabStyle:tabStyle}
+            className={`tab-button ${currVeiw === view ? 'active' : ''}`}
             onClick={() => setcurrVeiw(view)}
           >
             {view.charAt(0).toUpperCase()+view.slice(1)}
@@ -57,10 +42,13 @@ function Dashboard() {
         ))}
       </div>
 
-      <div style={{ background: 'white', padding: '1.5rem', borderRadius: '8px' }}>
+      <div className="content-card">
         {currVeiw === 'dashboard' && (
           <div>
             <h2>Welcome, {user[1]} {user[2]}!</h2>
+            <p style={{ color: '#718096', marginTop: '1rem' }}>
+              Use the tabs above to manage your accounts, transactions, and budgets.
+            </p>
           </div>
         )}
         {currVeiw==='account' && <Account userId={user[0]} />}

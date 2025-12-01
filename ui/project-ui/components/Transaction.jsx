@@ -72,18 +72,20 @@ function Transaction({ userId }) {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+      <div className="section-header">
         <h2>My Transactions</h2>
         <button
           onClick={() => setShowAddForm(!showAddForm)}
+          className="btn-primary"
         >
           {showAddForm ? 'Cancel' : '+ Add Transaction'}
         </button>
       </div>
 
       {showAddForm && (
-        <form onSubmit={handleAddTransaction}>
-          <div style={{ marginBottom: '1rem' }}>
+        <form onSubmit={handleAddTransaction} className="form-card">
+          <div className="form-group">
+            <label>Account</label>
             <select
               value={formData.account_id}
               onChange={(e) => setFormData({ ...formData, account_id: e.target.value })}
@@ -97,7 +99,8 @@ function Transaction({ userId }) {
               ))}
             </select>
           </div>
-          <div style={{ marginBottom: '1rem' }}>
+          <div className="form-group">
+            <label>Category</label>
             <select
               value={formData.category_id}
               onChange={(e) => setFormData({ ...formData, category_id: e.target.value })}
@@ -111,7 +114,8 @@ function Transaction({ userId }) {
               ))}
             </select>
           </div>
-          <div style={{ marginBottom: '1rem' }}>
+          <div className="form-group">
+            <label>Transaction Date</label>
             <input
               type="date"
               value={formData.transaction_date}
@@ -119,7 +123,8 @@ function Transaction({ userId }) {
               required
             />
           </div>
-          <div style={{ marginBottom: '1rem' }}>
+          <div className="form-group">
+            <label>Amount</label>
             <input
               type="number"
               placeholder="Amount"
@@ -129,7 +134,8 @@ function Transaction({ userId }) {
               required
             />
           </div>
-          <div style={{ marginBottom: '1rem' }}>
+          <div className="form-group">
+            <label>Description (optional)</label>
             <input
               type="text"
               placeholder="Description (optional)"
@@ -139,6 +145,7 @@ function Transaction({ userId }) {
           </div>
           <button
             type="submit"
+            className="btn-primary"
           >
             Add Transaction
           </button>
@@ -146,7 +153,7 @@ function Transaction({ userId }) {
       )}
 
       {transactions.length === 0 ? (
-        <p>No transactions found. Add your first transaction above.</p>
+        <p className="empty-state">No transactions found. Add your first transaction above.</p>
       ) : (
         <div>
           {transactions.map((transaction) => {
@@ -155,19 +162,27 @@ function Transaction({ userId }) {
             return (
               <div
                 key={transaction[0]}
+                className="item-card"
               >
-                <div>
-                  <p>
-                    {category ? category[1] : 'Unknown'}-{account ? account[2] :'Unknown Account'}
-                  </p>
-                  <p>
-                    {new Date(transaction[4]).toLocaleDateString()} {transaction[6] &&`- ${transaction[6]}`}
-                  </p>
-                </div>
-                <div style={{ textAlign: 'right' }}>
-                  <p>
-                    ${parseFloat(transaction[5]).toFixed(2)}
-                  </p>
+                <div className="item-header">
+                  <div>
+                    <h3 className="item-title">
+                      {category ? category[1] : 'Unknown'}
+                    </h3>
+                    <p className="item-subtitle">
+                      {account ? account[2] :'Unknown Account'} • {new Date(transaction[4]).toLocaleDateString()}
+                    </p>
+                    {transaction[6] && (
+                      <p className="item-subtitle" style={{ marginTop: '0.25rem' }}>
+                        {transaction[6]}
+                      </p>
+                    )}
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    <p className="item-amount">
+                      ${parseFloat(transaction[5]).toFixed(2)}
+                    </p>
+                  </div>
                 </div>
               </div>
             )
