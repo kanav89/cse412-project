@@ -1,7 +1,11 @@
 from flask import Flask, request, jsonify, send_file
 import psycopg2
+from flask_cors import CORS
 
+
+# cors
 app = Flask(__name__)
+CORS(app)
 
 from routes.user import app as user_routes
 from routes.account import app as account_routes
